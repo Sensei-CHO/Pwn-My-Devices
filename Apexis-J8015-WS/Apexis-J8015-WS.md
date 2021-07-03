@@ -187,7 +187,7 @@ PORT   STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 33.33 seconds
 ```
 
-## Conslusion (for the moment)
+## Conclusion (at the moment)
 With a bit of **hacking** skills, we now know that the Apexis-J8015-WS is vulnerable!
 There is a lots of other things to say about this IP camera like:
 - DDNS
